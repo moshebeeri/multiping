@@ -5,12 +5,30 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "projects:tests.simple_ping_test.inc (python3.8)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "",
+        "lambdaHandler": "tests.simple_ping_test.inc"
+      },
+      "lambda": {
+        "runtime": "python3.8",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    },
+    {
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
       "program": "main.py",
       "console": "integratedTerminal",
-      "args": ["-t", "client"]
+      "args": [
+        "-t",
+        "client"
+      ]
     }
   ]
 }
