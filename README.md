@@ -11,4 +11,3 @@ or just get the commands on the [git-flow cheatsheet](https://danielkummer.githu
 TDD is done by using the pytest framework utilizing, mock and patch
 While mocking the architecture first it will automatically gain the interfaces of the different software modules.
 All tasks should start with tests in branching and follow with the modules development.
-
