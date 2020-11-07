@@ -6,6 +6,10 @@ This project uses the the standard git-flow branching strategy
 in case you are not familure with you may like to review the [github git-flow guide](https://guides.github.com/introduction/flow/)
 or just get the commands on the [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/)
 
+### Howto git-flow
+
+  git flow feature start MY_AWESOME_FEATURE
+
 ## TTD Framework
 
 TDD is done by using the pytest framework utilizing, mock and patch
