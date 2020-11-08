@@ -4,12 +4,15 @@ from pytest_mock import mocker
 from commands.client import Client
 from commands.server import Server
 
+class Transport:
+  pass
+
 class TestSimpleClientSeverPing:
   def create_client(self, protocol, ip, port):
-    return Client
+    return Client(Transport())
 
   def create_server(self, protocol, ip, port):
-    return Server
+    return Server(Transport())
   
   @patch('commands.client.Client.ping', return_value=1)
   def test_ping(self, mocker):
