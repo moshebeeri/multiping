@@ -1,5 +1,12 @@
 # Multi Ping
 
+## Usage
+
+  open terminal, and run the following command:
+  `python main.py -t server -p udp -ip 127.0.0.1 -port 20001`
+  open an other terminal, and run the following command:
+  `python main.py -t client -p udp -ip 127.0.0.1 -port 20001`
+
 ## Branching strategy
 
 This project uses the the standard git-flow branching strategy
@@ -8,21 +15,23 @@ or just get the commands on the [git-flow cheatsheet](https://danielkummer.githu
 
 ### Howto git-flow
   
-  this flow is for single developer per feature, please review and refine the process for squads and teams.
+  This flow is for single developer per feature, please review and refine the process for squads and teams.
 
-  git flow feature start my_awesome_feature
-  develop the feature
+  `git flow feature start my_awesome_feature`
 
-  when you are done
-  git flow feature finish my_awesome_feature
-  git flow release start my_awesome_feature
-  git flow release finish my_awesome_feature
+  develop the feature and when you are done
 
-  Create Pull request in github
-  after reviewing the pull request it will be merged into main branch.
+  `git flow feature finish my_awesome_feature`
+  `git flow release start my_awesome_feature`
+  `git flow release finish my_awesome_feature`
+
+  Create **Pull request** in github
+
+  After reviewing the pull request it will be merged into main branch.
 
 ## TTD Framework
 
 TDD is done by using the pytest framework utilizing, mock and patch
 While mocking the architecture first it will automatically gain the interfaces of the different software modules.
+
 All tasks should start with tests in branching and follow with the modules development.

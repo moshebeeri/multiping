@@ -1,18 +1,24 @@
 from datetime import datetime
+import json
 
 class Message:
   trace = {}
-  def __init__(self):
-    self.trace['created'] = datetime.now().timestamp()
+  def __init__(self, trace = None):
+    if trace is not None:
+      self.trace = trace
+    else:
+      self.trace['created'] = datetime.now().timestamp()
   
   def start(self):
     self.trace['start'] = datetime.now().timestamp()
+    return self
   
-  def add_trace(self, ip):
-    if ip in self.trace:
-       self.trace[ip].append(datetime.now().timestamp())
+  def add_trace(self, name):
+    if name in self.trace:
+       self.trace[name].append(datetime.now().timestamp())
     else:
-      self.trace[ip] = [datetime.now().timestamp()]
+      self.trace[name] = [datetime.now().timestamp()]
+    return self
   
   def end(self):
     self.trace['end'] = datetime.now().timestamp()
@@ -24,4 +30,4 @@ class Message:
     return self.trace['end'] - self.trace['start']
 
   def json(self):
-    json.dumps(self.__dict__)
+    return json.dumps(self.trace)

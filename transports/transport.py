@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Transport(ABS):
+class Transport(ABC):
 
   def __init__(self):
     super().__init__()
@@ -10,9 +10,10 @@ class Transport(ABS):
     pass
 
   @abstractmethod
-  def send(self, msg):
+  def ping(self, address):
     pass
   
   @abstractmethod
-  def receive(self):
+  def pong(self):
     pass
+
