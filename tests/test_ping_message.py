@@ -4,6 +4,7 @@ from pytest_mock import mocker
 from message.ping import Message
 from datetime import datetime
 from freezegun import freeze_time
+import json
 
 class TestPingMessage:
   def create_message(self):
@@ -30,11 +31,17 @@ class TestPingMessage:
     freezer.stop()
 
   def test_serialization(self):
+    freezer = freeze_time("2020-11-08 12:00:00")
+    freezer.start()
+
     ping_msg = self.create_message()
     ping_msg.start()
     msg = ping_msg.json()
-    assert msg != ''
-    
+    server_msg = Message(json.loads(msg))
+    freezer = freeze_time("2020-11-08 12:00:01")
+    freezer.start()
+    server_msg.end()
+    assert server_msg.time() == 1.0
 
 
 

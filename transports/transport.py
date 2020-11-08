@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Transport(ABS):
+class Transport(ABC):
 
   def __init__(self):
     super().__init__()
