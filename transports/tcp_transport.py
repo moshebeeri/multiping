@@ -1,4 +1,7 @@
-class TCPTransport:
+import socket
+from .transport import Transport
+
+class TCPTransport(Transport):
     def __init__(self, sock=None):
         if sock is None:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

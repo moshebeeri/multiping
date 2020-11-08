@@ -1,5 +1,6 @@
 import socket
-from transport import Transport
+from .transport import Transport
+from datetime import datetime
 
 ## see https://docs.python.org/3.8/howto/sockets.html
 class UDPTransport(Transport):
@@ -36,3 +37,29 @@ class UDPTransport(Transport):
             bytes_recd = bytes_recd + len(chunk)
             break
         return b''.join(chunks)
+
+    def recvfrom(self, bufferSize):
+        bytesAddressPair = self.sock.recvfrom(bufferSize)
+        message = bytesAddressPair[0]
+        address = bytesAddressPair[1]
+        clientMsg = "Message from Client:{}".format(message)
+        clientIP  = "Client IP Address:{}".format(address)
+        print(clientMsg)
+        print(clientIP)
+        return message
+
+    def ping(self, address):
+        self.sock.sendto(datetime.now(), address)
+
+    def pong(self):
+        while(True):
+            bytesAddressPair = self.sock.recvfrom(1024)
+            message = bytesAddressPair[0]
+            address = bytesAddressPair[1]
+            clientMsg = "Message from Client:{}".format(message)
+            clientIP  = "Client IP Address:{}".format(address)
+            print(clientMsg)
+            print(clientIP)
+            # pong client
+            self.sock.sendto(message, address)
+

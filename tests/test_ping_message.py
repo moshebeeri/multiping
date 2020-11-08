@@ -29,6 +29,13 @@ class TestPingMessage:
     assert dt_ms == 1000
     freezer.stop()
 
+  def test_serialization(self):
+    ping_msg = self.create_message()
+    ping_msg.start()
+    msg = ping_msg.json()
+    assert msg != ''
+    
+
 
 
     
