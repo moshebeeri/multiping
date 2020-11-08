@@ -8,8 +8,8 @@ from freezegun import freeze_time
 class TestPingMessage:
   def create_message(self):
     return Message()
-
-  @freeze_time("2020-08-14")
+ 
+  @freeze_time("2020-08-15")
   def test_time_measurement(self):
     ping_msg = self.create_message()
     ping_msg.start()
