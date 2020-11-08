@@ -16,30 +16,30 @@ if __name__ == '__main__':
                     help='list of supported protocols, default to UDP')
     # TODO: add tracing printing support
     # ap.add_argument('-r', "--trace", default=False, help="trace span time")
-    ap.add_argument('-a', '--ip', type=str, required=True, help='communication ip address')
-    ap.add_argument('-o', '--port', type=int, required=True, help='communication port')
+    ap.add_argument('-ip', '--ip', type=str, required=True, help='communication ip address')
+    ap.add_argument('-port', '--port', type=int, required=True, help='communication port')
 
     args = ap.parse_args()
 
     if args.type is not None:
       print(args.type)
 
-    if args.interfaces is not None:
-      print(args.interfaces)
+    if args.protocol is not None:
+      print(args.protocol)
 
-    if args.protocols is not None:
-      print(args.protocols)
+    if args.ip is not None:
+      print(args.ip)
+
+    if args.port is not None:
+      print(args.port)
 
     if args.type == 'client':
-      print(args.protocols, 'client')
+      print(args.protocol, 'client')
       transport = UDPTransport()
-      Client(transport).ping()
+      Client(transport).ping((args.ip, args.port))
 
     if args.type == 'server':
-      print(args.protocols, 'server')
+      print(args.protocol, 'server')
       transport = UDPTransport()
       transport.connect(args.ip, args.port)
       Server(transport).pong()
-
-
-    

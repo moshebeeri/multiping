@@ -11,12 +11,14 @@ class Message:
   
   def start(self):
     self.trace['start'] = datetime.now().timestamp()
+    return self
   
   def add_trace(self, name):
     if name in self.trace:
        self.trace[name].append(datetime.now().timestamp())
     else:
       self.trace[name] = [datetime.now().timestamp()]
+    return self
   
   def end(self):
     self.trace['end'] = datetime.now().timestamp()

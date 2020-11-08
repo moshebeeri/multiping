@@ -14,25 +14,33 @@ class UDPTransport(Transport):
             self.sock = sock
 
     def connect(self, host, port):
-        super().connect(self, host, port)
-        self.sock.connect((host, port))
+        super().connect(host, port)
+        self.sock.bind((host, port))
+        print('socket conneted', (host, port))
+
 
     def ping(self, address):
         super().ping(address)
-        self.sock.sendto(Message().json(), address)
+        msg = Message().start().json()
+        self.sock.sendto(str.encode(msg), address)
+        print('ping', msg, address)
+        msgFromServer = self.sock.recvfrom(1024)
+        msg = "Message from Server {}".format(msgFromServer[0])
+        server_msg = Message(json.loads(msgFromServer[0]))
+        server_msg.end()
+        print('ping time: ', server_msg.time())
+
 
     def pong(self):
         super().pong()
-        while(True):
+        while (True):
             bytesAddressPair = self.sock.recvfrom(1024)
             message = bytesAddressPair[0]
             address = bytesAddressPair[1]
             clientMsg = "Message from Client:{}".format(message)
             clientIP  = "Client IP Address:{}".format(address)
-            print(clientMsg)
-            print(clientIP)
             # pong client
             server_msg = Message(json.loads(message))
-            server_msg.append('server')
-            self.sock.sendto(server_msg.json(), address)
+            server_msg.add_trace('server')
+            self.sock.sendto(str.encode(server_msg.json()), address)
 

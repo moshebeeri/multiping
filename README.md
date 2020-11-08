@@ -1,5 +1,12 @@
 # Multi Ping
 
+## Usage
+
+  open terminal, and run the following command:
+  `python main.py -t server -p udp -ip 127.0.0.1 -port 20001`
+  open an other terminal, and run the following command:
+  `python main.py -t client -p udp -ip 127.0.0.1 -port 20001`
+
 ## Branching strategy
 
 This project uses the the standard git-flow branching strategy
