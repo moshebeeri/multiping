@@ -12,11 +12,11 @@ class Message:
   def start(self):
     self.trace['start'] = datetime.now().timestamp()
   
-  def add_trace(self, ip):
-    if ip in self.trace:
-       self.trace[ip].append(datetime.now().timestamp())
+  def add_trace(self, name):
+    if name in self.trace:
+       self.trace[name].append(datetime.now().timestamp())
     else:
-      self.trace[ip] = [datetime.now().timestamp()]
+      self.trace[name] = [datetime.now().timestamp()]
   
   def end(self):
     self.trace['end'] = datetime.now().timestamp()

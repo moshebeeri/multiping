@@ -1,6 +1,8 @@
 import socket
+import json
 from .transport import Transport
 from datetime import datetime
+from message.ping import Message
 
 ## see https://docs.python.org/3.8/howto/sockets.html
 class UDPTransport(Transport):
@@ -17,7 +19,7 @@ class UDPTransport(Transport):
 
     def ping(self, address):
         super().ping(address)
-        self.sock.sendto(datetime.now(), address)
+        self.sock.sendto(Message().json(), address)
 
     def pong(self):
         super().pong()
@@ -30,5 +32,7 @@ class UDPTransport(Transport):
             print(clientMsg)
             print(clientIP)
             # pong client
-            self.sock.sendto(message, address)
+            server_msg = Message(json.loads(message))
+            server_msg.append('server')
+            self.sock.sendto(server_msg.json(), address)
 

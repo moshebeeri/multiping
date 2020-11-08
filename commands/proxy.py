@@ -3,7 +3,7 @@ class Proxy:
     self.transport = transport
 
   def ping(self):
-    return 2
+    raise NotImplementedError
 
-  def listen(self):
-    pass
+  def pong(self):
+    raise NotImplementedError
