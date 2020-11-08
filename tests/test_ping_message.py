@@ -41,6 +41,7 @@ class TestPingMessage:
     freezer = freeze_time("2020-11-08 12:00:01")
     freezer.start()
     server_msg.end()
+    df = server_msg.time()
     assert server_msg.time() == 1.0
 
 

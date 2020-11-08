@@ -1,5 +1,6 @@
 import socket
 from .transport import Transport
+from datetime import datetime
 
 class TCPTransport(Transport):
     def __init__(self, sock=None):
@@ -9,25 +10,23 @@ class TCPTransport(Transport):
             self.sock = sock
 
     def connect(self, host, port):
+        super().connect(self, host, port)
         self.sock.connect((host, port))
 
-    def send(self, msg):
-        totalsent = 0
-        while totalsent <  msg.len():
-            sent = self.sock.send(msg[totalsent:])
-            if sent == 0:
-                raise RuntimeError("socket connection broken")
-            totalsent = totalsent + sent
+    def ping(self, address):
+        super().ping(address)
+        self.sock.sendto(datetime.now(), address)
 
-    def receive(self):
-        chunks = []
-        bytes_recd = 0
-        maxlen = 2048
-        while bytes_recd < maxlen:
-            chunk = self.sock.recv(min(maxlen - bytes_recd, 2048))
-            if chunk == b'':
-                raise RuntimeError("socket connection broken")
-            chunks.append(chunk)
-            bytes_recd = bytes_recd + len(chunk)
-            break
-        return b''.join(chunks)
+    def pong(self):
+        super().pong()
+        while(True):
+            bytesAddressPair = self.sock.recvfrom(1024)
+            message = bytesAddressPair[0]
+            address = bytesAddressPair[1]
+            clientMsg = "Message from Client:{}".format(message)
+            clientIP  = "Client IP Address:{}".format(address)
+            print(clientMsg)
+            print(clientIP)
+            # pong client
+            self.sock.sendto(message, address)
+

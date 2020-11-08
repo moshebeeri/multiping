@@ -10,9 +10,10 @@ class Transport(ABC):
     pass
 
   @abstractmethod
-  def send(self, msg):
+  def ping(self, address):
     pass
   
   @abstractmethod
-  def receive(self):
+  def pong(self):
     pass
+
